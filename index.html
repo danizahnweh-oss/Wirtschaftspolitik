@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wirtschaftspolitik: Konzeptionen und Maßnahmen</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #2980b9;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background-color: var(--accent-color);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .academic-text {
+            background-color: #fff;
+            padding: 2rem;
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .task-container {
+            background-color: #e8f4f8;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+        }
+
+        .task-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 300px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-style: italic;
+            border: 2px dashed #ced4da;
+            margin: 1.5rem 0;
+        }
+
+        .group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .group-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 5px;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        /* Smiley Radio Buttons */
+        .reflection-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .smileys {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .smileys label {
+            cursor: pointer;
+            filter: grayscale(100%);
+            transition: filter 0.2s, transform 0.2s;
+        }
+
+        .smileys input[type="radio"] {
+            display: none;
+        }
+
+        .smileys input[type="radio"]:checked + span {
+            filter: grayscale(0%);
+            transform: scale(1.2);
+            display: inline-block;
+        }
+
+        .print-btn-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .btn-print {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-print:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; color: black; font-size: 12pt; }
+            header, nav, .print-btn-container, .academic-text { display: none !important; }
+            main { margin: 0; padding: 0; max-width: 100%; }
+            .tab-content { display: block !important; page-break-inside: avoid; margin-bottom: 2rem; box-shadow: none; border: none; padding: 0; }
+            textarea { border: 1px solid #000; height: auto !important; min-height: 100px; }
+            .task-container { background-color: transparent; border: 1px solid #000; }
+            h2 { border-bottom: 1px solid #000; padding-bottom: 5px; }
+            .placeholder-img { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Wirtschaftspolitik im Spannungsfeld</h1>
+        <p>Analyse, Synthese und Bewertung wirtschaftspolitischer Konzeptionen (Jahrgangsstufe 12)</p>
+    </header>
+
+    <nav class="no-print">
+        <button class="tab-link active" onclick="openTab(event, 'intro')">Einführung</button>
+        <button class="tab-link" onclick="openTab(event, 'nachfrage')">Nachfrageorientierung</button>
+        <button class="tab-link" onclick="openTab(event, 'angebot')">Angebotsorientierung</button>
+        <button class="tab-link" onclick="openTab(event, 'gallery-walk')">Gallery Walk (Plakate)</button>
+        <button class="tab-link" onclick="openTab(event, 'verstaendnis')">Verständnischeck</button>
+        <button class="tab-link" onclick="openTab(event, 'reflexion')">Reflexion</button>
+    </nav>
+
+    <main>
+        <!-- TAB 1: EINFÜHRUNG -->
+        <div id="intro" class="tab-content active">
+            <h2>Einführung in die Modulaufgabe</h2>
+            <div class="academic-text">
+                <p>Sehr geehrte Schülerinnen und Schüler,</p>
+                <p>die wirtschaftliche Entwicklung einer Volkswirtschaft verläuft selten linear, sondern ist geprägt durch zyklische Fluktuationen – die Konjunktur. Wenn Wachstumsraten stagnieren, die Arbeitslosigkeit steigt oder die Inflation die Kaufkraft erodiert, rückt der Staat als potenzieller Akteur in den Fokus. Doch wie genau soll der Staat intervenieren? Sollte er überhaupt intervenieren?</p>
+                <p>In diesem Modul erarbeiten Sie sich die theoretischen Fundamente der zwei zentralen wirtschaftspolitischen Paradigmen: der nachfrageorientierten (keynesianischen) und der angebotsorientierten (neoklassisch-monetaristischen) Wirtschaftspolitik. Ihr Ziel ist es nicht nur, diese Theorien zu rezipieren, sondern reale wirtschaftspolitische Maßnahmen (wie die Corona-Entlastungspakete oder Debatten um Entbürokratisierung) vor dem Hintergrund dieser Theorien kritisch zu evaluieren.</p>
+                <p><strong>Methodischer Hinweis:</strong> Die folgenden Texte sind auf akademischem Niveau verfasst. Es ist Ihre Aufgabe, die wesentlichen Prämissen, Wirkungsmechanismen und Kritikpunkte eigenständig zu exzerpieren. Alle Ihre Eingaben in den Textfeldern werden lokal auf Ihrem Gerät gespeichert. Am Ende des Moduls können Sie ein PDF generieren, welches ausschließlich Ihre erarbeiteten Notizen für die Abiturvorbereitung enthält.</p>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;" class="no-print">
+                <img src="image_0b311b.jpg" alt="Entwicklung des realen deutschen Bruttoinlandsprodukts" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <p style="font-size: 0.9rem; color: #6c757d; font-style: italic; margin-top: 0.5rem;">Abbildung 1: Entwicklung des realen deutschen Bruttoinlandsprodukts (BIP) im Zeitverlauf (Quelle: Statista)</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: NACHFRAGEORIENTIERUNG -->
+        <div id="nachfrage" class="tab-content">
+            <h2>Nachfrageorientierte Wirtschaftspolitik (Keynesianismus)</h2>
+            
+            <div class="academic-text">
+                <p>Die Genese der nachfrageorientierten Wirtschaftspolitik ist untrennbar mit der Weltwirtschaftskrise von 1929 und dem britischen Ökonomen John Maynard Keynes verbunden. Bis zu diesem Zäsurpunkt dominierte das neoklassische Theorem, insbesondere das Saysche Theorem, welches postuliert, dass sich jedes Angebot seine eigene Nachfrage schaffe. Eine anhaltende Unterbeschäftigungskrise wurde folglich als theoretische Unmöglichkeit oder als temporäres Resultat rigider Preise und Löhne deklariert. Keynes dekonstruierte diese Annahme in seiner „General Theory of Employment, Interest and Money“ (1936). Er identifizierte die effektive gesamtwirtschaftliche Nachfrage – bestehend aus Konsumgüternachfrage, Investitionsgüternachfrage, Staatsnachfrage und Nettoexporten – als den determinierenden Faktor für Produktion und Beschäftigungsmakroökonomie.</p>
+                
+                <p>Aus keynesianischer Perspektive tendieren marktwirtschaftliche Systeme inhärent zu einem Gleichgewicht bei Unterbeschäftigung. Der Grund hierfür liegt primär in der Volatilität der privaten Investitionstätigkeit, die stark von den subjektiven Ertragserwartungen („animal spirits“) der Unternehmer determiniert wird. Bei pessimistischen Erwartungen sinken die Investitionen, was über den Multiplikatoreffekt zu einem überproportionalen Rückgang des Volkseinkommens und der Beschäftigung führt. Die private Ersparnisbildung verschärft diesen Prozess, da sie dem Wirtschaftskreislauf Kaufkraft entzieht, sofern sie nicht vollständig durch Investitionen kompensiert wird (sog. Sparparadoxon).</p>
+                
+                <p>Die wirtschaftspolitische Implikation dieses Befundes ist die Notwendigkeit einer antizyklischen Fiskalpolitik (Globalsteuerung). Der Staat fungiert als makroökonomischer Stabilisator. In einer Rezessionsoase muss die Exekutive die aggregierte Nachfrage künstlich substituieren, primär durch fremdfinanzierte Staatsausgaben (Deficit Spending). Durch Investitionen in Infrastruktur oder Transferleistungen an private Haushalte mit hoher marginaler Konsumquote soll ein expansiver Impuls generiert werden. In Hochkonjunkturphasen hingegen fordert die Theorie eine restriktive Fiskalpolitik (Surplus Saving): Steuern sollten erhöht und Staatsausgaben reduziert werden, um Inflationspotenziale zu neutralisieren und die in der Krise akkumulierten Staatsschulden zu tilgen.</p>
+                
+                <p>Die empirische Evidenz und theoretische Weiterentwicklung haben jedoch signifikante Restriktionen der Nachfragepolitik offengelegt. Eine zentrale Problematik stellen die sogenannten „Time Lags“ (Verzögerungseffekte) dar. Bis eine Krise statistisch verifiziert (Recognition Lag), eine politische Maßnahme legiferiert (Decision Lag) und diese in der Realwirtschaft wirksam wird (Effect Lag), hat sich die konjunkturelle Situation oft bereits gewendet. Im ungünstigsten Fall wirkt die ehemals antizyklisch intendierte Maßnahme nun prozyklisch und destabilisiert die Wirtschaft weiter. Ein weiteres gravierendes Defizit ist die Asymmetrie in der politischen Umsetzung: Während Deficit Spending in Krisen politisch opportun ist, fehlt in Boomphasen oft die politische Durchsetzungskraft für unpopuläre Konsolidierungsmaßnahmen (Steuererhöhungen, Ausgabenkürzungen). Dies resultiert in einer strukturellen Staatsverschuldung. Zudem wird argumentiert, dass staatliche Kreditaufnahme zur Finanzierung des Deficit Spending zu steigenden Zinsen führen kann, wodurch private Investitionen verdrängt werden (Crowding-out-Effekt).</p>
+            </div>
+
+            <div class="task-container">
+                <p class="task-title">Arbeitsauftrag 1: Theorie-Exzerpt</p>
+                <p>Extrahieren Sie aus dem obigen Text die grundlegende Ursache für Arbeitslosigkeit aus Sicht des Keynesianismus sowie die daraus resultierende Handlungsempfehlung für den Staat. Nennen Sie zudem zwei zentrale Kritikpunkte.</p>
+                <textarea id="note-nachfrage-1" placeholder="Ihre Notizen hier eingeben..."></textarea>
+            </div>
+
+            <div class="task-container">
+                <p class="task-title">Arbeitsauftrag 2: Transfer auf Buchmaterial (vgl. S. 85, Aufgabe 6)</p>
+                <p>Analysieren Sie die Entlastungspakete der Bundesregierung (z.B. Energiepreispauschale, Neun-Euro-Ticket – vgl. Buchseite 82/M2). Begründen Sie fundiert, inwiefern diese Maßnahmen der keynesianischen nachfrageorientierten Wirtschaftspolitik zuzuordnen sind. Nutzen Sie Fachtermini aus Ihrem Exzerpt.</p>
+                <textarea id="note-nachfrage-2" placeholder="Ihre Analyse hier eingeben..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 3: ANGEBOTSORIENTIERUNG -->
+        <div id="angebot" class="tab-content">
+            <h2>Angebotsorientierte Wirtschaftspolitik (Neoklassik)</h2>
+            
+            <div class="academic-text">
+                <p>Die angebotsorientierte Wirtschaftspolitik erfuhr ihre Renaissance ab den späten 1970er Jahren, als die westlichen Industrienationen mit dem Phänomen der Stagflation – der simultanen Existenz von wirtschaftlicher Stagnation und hoher Inflation – konfrontiert waren. Die keynesianische Nachfragesteuerung erwies sich angesichts von Angebotsschocks (wie den Ölkrisen) als ineffektiv und partiell sogar als inflationsverschärfend. Die theoretische Basis der Angebotsorientierung rekurriert auf die neoklassische Preistheorie und den Monetarismus (maßgeblich geprägt durch Milton Friedman). Im Zentrum des Paradigmas steht die Überzeugung, dass die langfristige Wachstumsdynamik und das Beschäftigungsniveau einer Volkswirtschaft ausschließlich durch die Angebotsseite, respektive die Produktionsbedingungen der Unternehmen, determiniert werden. Es gilt eine moderne Interpretation des Sayschen Theorems: Langfristig induziert ein qualitativ und quantitativ hochwertiges Güterangebot die korrespondierende Nachfrage.</p>
+                
+                <p>Die zentrale Prämisse dieses Ansatzes ist die inherent stabilisierende Funktion des Preismechanismus auf freien Märkten. Arbeitslosigkeit wird primär als strukturelles, nicht als konjunkturelles Problem diagnostiziert. Sie resultiert aus Marktimperfektionen, insbesondere aus Reallöhnen, die über dem markträumenden Gleichgewichtspreis liegen, oft verursacht durch gewerkschaftliche Lohnkartelle oder wohlfahrtsstaatliche Interventionen (z.B. hohe Mindestlöhne oder Lohnersatzleistungen, die den Reservationslohn erhöhen). Der Unternehmensgewinn wird als entscheidender Motor für Investitionen betrachtet („Die Gewinne von heute sind die Investitionen von morgen und die Arbeitsplätze von übermorgen“).</p>
+                
+                <p>Das wirtschaftspolitische Postulat leitet sich direkt aus dieser Diagnose ab: Der Staat hat nicht die Aufgabe, die Nachfrage konjunkturell zu steuern, sondern vielmehr die Angebotsbedingungen (Standortfaktoren) langfristig zu optimieren und ordnungspolitische Rahmenbedingungen (Ordnungspolitik) zu setzen. Die Wirtschaftspolitik soll vorhersehbar und stetig sein, um die Investitionsplanung der Unternehmen nicht zu perturbieren. Konkrete Maßnahmen umfassen die Deregulierung von Märkten (Abbau bürokratischer Hemmnisse), die Flexibilisierung des Arbeitsmarktes (z.B. Lockerung des Kündigungsschutzes), die Reduktion der Unternehmenssteuerlast und der Lohnnebenkosten sowie die Förderung von Forschung und Entwicklung (Innovationsförderung). Die Geldpolitik, gesteuert durch eine unabhängige Zentralbank, soll sich strikt auf die Gewährleistung der Preisniveaustabilität fokussieren (potenzialorientierte Geldmengensteuerung) und nicht zur kurzfristigen Konjunkturstimulation missbraucht werden.</p>
+                
+                <p>Auch die angebotsorientierte Konzeption ist substanzieller Kritik ausgesetzt. Moniert wird oftmals die Vernachlässigung der kurzfristigen Nachfrageausfälle. Investitionsentscheidungen hängen nicht nur von der Kostenseite und der Rentabilität ab, sondern essenziell von den Absatzerwartungen. Selbst bei optimalen Angebotsbedingungen wird ein Unternehmer keine Kapazitätserweiterung vornehmen, wenn keine adäquate Kaufkraft aufseiten der Konsumenten vorhanden ist. Des Weiteren führen Flexibilisierungen auf dem Arbeitsmarkt und Kürzungen im Sozialbereich häufig zu einer Verschärfung der sozialen Ungleichheit und zu prekären Beschäftigungsverhältnissen. Schließlich wird argumentiert, dass angebotsorientierte Maßnahmen (wie Steuersenkungen für Unternehmen) zu einem internationalen „Race to the bottom“ (Wettlauf nach unten) führen können, bei dem Staaten sich in ruinöser Standortkonkurrenz unterbieten, was langfristig die finanzielle Basis des Gemeinwesens erodiert.</p>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;" class="no-print">
+                <img src="Bildschirmfoto 2026-02-12 um 09.21.46.png" alt="Säulendiagramm zur Belastung von Unternehmen durch Bürokratie" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <p style="font-size: 0.9rem; color: #6c757d; font-style: italic; margin-top: 0.5rem;">Abbildung 2: Der bürokratische Aufwand im Unternehmen in der Zusammenarbeit mit der öffentlichen Verwaltung (vgl. Buch S. 88, M6)</p>
+            </div>
+
+            <div class="task-container">
+                <p class="task-title">Arbeitsauftrag 3: Theorie-Exzerpt</p>
+                <p>Skizzieren Sie die Grundannahme der Angebotsorientierung bezüglich der Entstehung von Arbeitslosigkeit. Welche Rolle weisen sie dem Staat zu? Nennen Sie mindestens zwei typische Instrumente dieser Politik.</p>
+                <textarea id="note-angebot-1" placeholder="Ihre Notizen hier eingeben..."></textarea>
+            </div>
+
+            <div class="task-container">
+                <p class="task-title">Arbeitsauftrag 4: Bewertung von Entbürokratisierung (vgl. S. 89, Aufgabe 7)</p>
+                <p>Die deutsche Wirtschaft klagt über erhebliche bürokratische Hürden (vgl. M6). Zeigen Sie argumentativ auf, warum eine konsequente Entbürokratisierung zur Stärkung der Angebotsseite (und damit des langfristigen Wachstums) aus neoklassischer Sicht als sinnvoll und zwingend erachtet wird.</p>
+                <textarea id="note-angebot-2" placeholder="Ihre Argumentation hier eingeben..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 4: GALLERY WALK (GRUPPENARBEIT) -->
+        <div id="gallery-walk" class="tab-content">
+            <h2>Gestaltung des Gallery Walks (Plakat-Erstellung)</h2>
+            <div class="task-container no-print">
+                <p><strong>Arbeitsauftrag:</strong> Finden Sie sich in vier Gruppen zusammen. Jede Gruppe erarbeitet ein Plakat zu einem spezifischen Analysebereich. Das Plakat muss wissenschaftlich fundiert sein und komplexe Sachverhalte visuell und textlich prägnant auf den Punkt bringen. Im anschließenden Gallery Walk präsentiert ein Gruppenmitglied das Plakat, während die anderen rotieren und sich Notizen machen.</p>
+            </div>
+
+            <div class="group-grid">
+                <!-- Gruppe 1 -->
+                <div class="group-card">
+                    <h3 style="color: var(--accent-color);">Gruppe 1: Historie & Krise</h3>
+                    <p><strong>Fokus:</strong> Die Weltwirtschaftskrise 1929 und der Paradigmenwechsel durch Keynes.</p>
+                    <p><strong>Auftrag:</strong> Analysieren Sie die Situation von 1929 (vgl. Buch S. 83, M4). Erklären Sie auf dem Plakat, warum das Saysche Theorem hier versagte und wie Keynes den „Expansiven Effekt“ (M6, S. 85) begründete.</p>
+                    <textarea id="group1-notes" placeholder="Vorab-Notizen für Gruppe 1..."></textarea>
+                </div>
+
+                <!-- Gruppe 2 -->
+                <div class="group-card">
+                    <h3 style="color: var(--accent-color);">Gruppe 2: Nachfrage in der Praxis</h3>
+                    <p><strong>Fokus:</strong> Krisenmanagement während Corona (2020) & Energiekrise.</p>
+                    <p><strong>Auftrag:</strong> Bewerten Sie die Maßnahmen aus S. 82 (M1 & M2) sowie die Förderung für Elektroautos (S. 84, M5). Stellen Sie grafisch dar, wie diese Maßnahmen den Wirtschaftskreislauf stimulieren sollen. Diskutieren Sie mögliche Wirkungs-Grenzen (Aufgabe 8, S. 85).</p>
+                    <textarea id="group2-notes" placeholder="Vorab-Notizen für Gruppe 2..."></textarea>
+                </div>
+
+                <!-- Gruppe 3 -->
+                <div class="group-card">
+                    <h3 style="color: var(--accent-color);">Gruppe 3: Die Angebotsseite</h3>
+                    <p><strong>Fokus:</strong> Standortbedingungen und der Kampf gegen den „Bürokratie-Dschungel“.</p>
+                    <p><strong>Auftrag:</strong> Analysieren Sie den Text zu Bürokratie (S. 89). Visualisieren Sie auf dem Plakat die negativen Effekte von Überregulierung auf die Investitionsbereitschaft von Unternehmen. Leiten Sie daraus angebotsorientierte Handlungsmaximen ab.</p>
+                    <textarea id="group3-notes" placeholder="Vorab-Notizen für Gruppe 3..."></textarea>
+                </div>
+
+                <!-- Gruppe 4 -->
+                <div class="group-card">
+                    <h3 style="color: var(--accent-color);">Gruppe 4: Synthese (Das Kurzarbeitergeld)</h3>
+                    <p><strong>Fokus:</strong> Maßnahmen mit hybrider Wirkung.</p>
+                    <p><strong>Auftrag:</strong> Die Verlängerung des Kurzarbeitergeldes (S. 88, M5). Begründen Sie umfassend (Aufgabe 5, S. 89), warum diese Maßnahme <strong>sowohl</strong> der nachfrageorientierten <strong>als auch</strong> der angebotsorientierten Wirtschaftspolitik zugeordnet werden kann. Stellen Sie die jeweilige intendierte Wirkung dar.</p>
+                    <textarea id="group4-notes" placeholder="Vorab-Notizen für Gruppe 4..."></textarea>
+                </div>
+            </div>
+            
+            <div class="task-container" style="margin-top: 2rem;">
+                <p class="task-title">Notizen aus dem Gallery Walk</p>
+                <p>Nutzen Sie dieses Feld, um während des Gallery Walks die wichtigsten Erkenntnisse der anderen drei Gruppen festzuhalten.</p>
+                <textarea id="gallery-walk-summary" placeholder="Meine Erkenntnisse aus dem Gallery Walk..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5: VERSTÄNDNISCHECK -->
+        <div id="verstaendnis" class="tab-content">
+            <h2>Verständnis- und Synthese-Check</h2>
+            <div class="task-container">
+                <p>Ordnen Sie die folgenden Aussagen/Maßnahmen begründet dem jeweiligen wirtschaftspolitischen Konzept zu (Nachfrage- oder Angebotsorientierung). Dies dient der Überprüfung, ob Sie die Kernmechanismen durchdrungen haben.</p>
+                
+                <p><strong>1. "Die Senkung der Unternehmenssteuern wird langfristig zu mehr Steuereinnahmen führen, da neue Arbeitsplätze entstehen."</strong></p>
+                <textarea id="check-1" placeholder="Konzept und Begründung..."></textarea>
+
+                <p><strong>2. "In der aktuellen Rezession muss der Staat Kredite aufnehmen, um marode Schulen zu sanieren, selbst wenn dies die Schuldenbremse verletzt."</strong></p>
+                <textarea id="check-2" placeholder="Konzept und Begründung..."></textarea>
+
+                <p><strong>3. "Ein starrer Kündigungsschutz hindert Unternehmen daran, in unsicheren Zeiten neue Mitarbeiter einzustellen."</strong></p>
+                <textarea id="check-3" placeholder="Konzept und Begründung..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 6: REFLEXION -->
+        <div id="reflexion" class="tab-content">
+            <h2>Selbstreflexion des Lernprozesses</h2>
+            <div class="task-container no-print">
+                <p>Bitte bewerten Sie ehrlich Ihren eigenen Kompetenzzuwachs in dieser Lerneinheit.</p>
+
+                <div class="reflection-item">
+                    <p>1. Ich kann die theoretischen Grundlagen der nachfrage- und angebotsorientierten Wirtschaftspolitik präzise voneinander abgrenzen.</p>
+                    <div class="smileys">
+                        <label><input type="radio" name="ref1" id="ref1-good" value="good"><span>😁</span></label>
+                        <label><input type="radio" name="ref1" id="ref1-neutral" value="neutral"><span>😐</span></label>
+                        <label><input type="radio" name="ref1" id="ref1-bad" value="bad"><span>🙁</span></label>
+                    </div>
+                </div>
+
+                <div class="reflection-item">
+                    <p>2. Ich bin in der Lage, reale staatliche Maßnahmen (z.B. Corona-Hilfen) theoriegeleitet zu analysieren und kritisch zu bewerten.</p>
+                    <div class="smileys">
+                        <label><input type="radio" name="ref2" id="ref2-good" value="good"><span>😁</span></label>
+                        <label><input type="radio" name="ref2" id="ref2-neutral" value="neutral"><span>😐</span></label>
+                        <label><input type="radio" name="ref2" id="ref2-bad" value="bad"><span>🙁</span></label>
+                    </div>
+                </div>
+
+                <div class="reflection-item">
+                    <p>3. Meine Mitarbeit und mein fachlicher Beitrag bei der Erstellung des Plakats in der Gruppenphase waren zielführend.</p>
+                    <div class="smileys">
+                        <label><input type="radio" name="ref3" id="ref3-good" value="good"><span>😁</span></label>
+                        <label><input type="radio" name="ref3" id="ref3-neutral" value="neutral"><span>😐</span></label>
+                        <label><input type="radio" name="ref3" id="ref3-bad" value="bad"><span>🙁</span></label>
+                    </div>
+                </div>
+                
+                <p><strong>Eigener Kommentar / Offene Fragen an die Lehrkraft:</strong></p>
+                <textarea id="reflection-comment" placeholder="Was ich noch nicht ganz verstanden habe..."></textarea>
+            </div>
+        </div>
+
+        <!-- PRINT BUTTON -->
+        <div class="print-btn-container">
+            <button class="btn-print" onclick="window.print()">Als PDF exportieren (Nur Notizen)</button>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">Ihre Eingaben werden lokal im Browser gespeichert.</p>
+        </div>
+
+    </main>
+
+    <script>
+        // Navigation Logic
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.className += " active";
+        }
+
+        // Local Storage Logic for saving student inputs
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const inputs = document.querySelectorAll('textarea, input[type="radio"]');
+            
+            inputs.forEach(input => {
+                // Load saved data
+                const savedValue = localStorage.getItem(input.id);
+                if (savedValue) {
+                    if (input.type === 'radio') {
+                        if(input.value === savedValue) {
+                            input.checked = true;
+                        }
+                    } else {
+                        input.value = savedValue;
+                    }
+                }
+
+                // Save data on change
+                input.addEventListener('input', function() {
+                    if (this.type === 'radio') {
+                        if(this.checked) {
+                            // Für Radiobuttons speichern wir den Wert unter der ID des ausgewählten Buttons
+                            // Um Konflikte zu vermeiden, speichern wir den Wert unter dem 'name' Attribut
+                            localStorage.setItem(this.id, this.value);
+                            
+                            // Lösche die Speicherung der anderen Radio-Buttons der gleichen Gruppe
+                            let radios = document.getElementsByName(this.name);
+                            radios.forEach(r => {
+                                if(r.id !== this.id) localStorage.removeItem(r.id);
+                            });
+                        }
+                    } else {
+                        localStorage.setItem(this.id, this.value);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
